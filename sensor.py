@@ -32,10 +32,10 @@ class Sensor:
         self.__to_string()
 
         if draw_flag:
-            if self.y_cols == 1:
+            if self.x_cols > 2:
                 self.draw()
             else:
-                print "can not draw 2D graph!"
+                print "can not draw in 2D graph!"
 
     def __train(self):
         a = sign(np.dot(self.x, self.w) + self.b)
@@ -106,8 +106,6 @@ class Sensor:
         print "w:", self.w
         print "b:", self.b
         print "epoch:", self.count
-        print self.w_list
-        print self.b_list
 
 
 if __name__ == "__main__":
