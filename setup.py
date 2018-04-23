@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='kan-ml',
+    name='kan_ml',
     version='0.0.1',
     keywords='machine learning',
     description='machine learning tools',

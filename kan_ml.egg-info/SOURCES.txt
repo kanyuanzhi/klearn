@@ -1,6 +1,6 @@
 setup.py
-kan-ml/__init__.py
-kan-ml/sensor.py
+kan_ml/__init__.py
+kan_ml/sensor.py
 kan_ml.egg-info/PKG-INFO
 kan_ml.egg-info/SOURCES.txt
 kan_ml.egg-info/dependency_links.txt
