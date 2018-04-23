@@ -3,6 +3,7 @@
 ## setup
 
 > python setup.py install
+
 > pip install numpy,matplotlib
 
 ## Sensor
