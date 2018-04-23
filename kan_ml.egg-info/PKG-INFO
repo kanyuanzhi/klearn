@@ -2,12 +2,12 @@ Metadata-Version: 1.1
 Name: kan-ml
 Version: 0.0.1
 Summary: machine learning tools
-Home-page: https://github.com/kanyuanzhi/kan-ml
-Author: Yuanzhi Kan
+Home-page: https://github.com/kanyuanzhi/kan_ML
+Author: Kan Yuanzhi
 Author-email: kanyuanzhi@gmail.com
 License: UNKNOWN
 Description: UNKNOWN
-Keywords: machine learning
+Keywords: machine-learning
 Platform: any
 Classifier: Development Status :: 3 - Alpha
 Classifier: Intended Audience :: Developers
