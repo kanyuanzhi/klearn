@@ -10,9 +10,9 @@
 ### use
 
 ```python
-import kan_ml.sensor as kmls
+from kan_ml.sensor import Sensor
 
-sensor = kmls.Sensor(x, y, eta, epoch, (boolen)draw_flag)
+sensor = Sensor(x, y, eta, epoch, (boolen)draw_flag)
 """
 :param eta: learning rate
 :param epoch: maximum number of cycles
@@ -35,9 +35,9 @@ sensor = Sensor(x, y, 0.3, 20, True)
 ### use
 
 ```python
-import kan_ml.knn as kmlk
+from kan_ml.knn import KNN
 
-knn = kmlk.KNN(x, tags, test_point, k, (boolen)draw_flag)
+knn = KNN(x, tags, test_point, k, (boolen)draw_flag)
 """
 :param x: training set
 :param tags: tags of training set
@@ -65,9 +65,9 @@ The toolbox also provide kdTree to store data in knn:
 #### use independently
 
 ```python
-import kan_ml.kdtree as kmlkdt
+from kan_ml.kdtree import KDTree
 
-kdtree = kmlkdt.KDTree(x)
+kdtree = KDTree(x)
 kdtree.scan_tree()
 ```
 
