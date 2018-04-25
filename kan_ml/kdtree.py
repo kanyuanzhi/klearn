@@ -20,6 +20,12 @@ class KDTree(object):
         return a[middle]
 
     def __create(self, a, j):
+        """
+        递归生成kd树
+        :param a: 待划分数据集
+        :param j: 选择划分维度
+        :return:
+        """
         if len(a) == 1:
             a[0]['dimension'] = j
             return Node(a[0])
@@ -36,7 +42,7 @@ class KDTree(object):
             root_node.left = left_node
             left_node.parent = root_node
 
-            if len(a) > 2:  # or len(right_a)>0
+            if len(a) > 2:  # or len(right_a)>0，此处由于偶数长度序列取中位数时取的是中间两个数中右侧的一个，导致右序列可能为空
                 right_node = self.__create(right_a, (j + 1) % self.dimensions)
                 root_node.right = right_node
                 right_node.parent = root_node
