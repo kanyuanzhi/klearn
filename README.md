@@ -55,3 +55,4 @@ test_point = [3, 4, 100]
 knn = KNN(x.T, y[0], test_point, 5)
 tag = knn.get_result()
 ```
+![image](https://github.com/kanyuanzhi/kan_ML/raw/master/docs/images/knn_3d.png)
