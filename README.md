@@ -35,9 +35,9 @@ sensor = Sensor(x, y, 0.3, 20, True)
 ### use
 
 ```python
-import kan_ml.KNN as kmls
+import kan_ml.knn as kmlk
 
-knn = KNN(x, tags, test_point, k, (boolen)draw_flag)
+knn = kmlk.KNN(x, tags, test_point, k, (boolen)draw_flag)
 """
 :param x: training set
 :param tags: tags of training set
@@ -57,3 +57,22 @@ knn = KNN(x.T, y[0], test_point, 5)
 tag = knn.get_result()
 ```
 ![image](https://github.com/kanyuanzhi/kan_ML/raw/master/docs/images/knn_3d.png)
+
+### kdTree
+
+The toolbox also provide kdTree to store data in knn:
+
+#### use independently
+
+```python
+import kan_ml.kdtree as kmlkdt
+
+kdtree = kmlkdt.KDTree(x)
+kdtree.scan_tree()
+```
+
+#### use in knn
+
+```python
+# developing
+```
