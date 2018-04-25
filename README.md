@@ -28,6 +28,7 @@ y = np.array([(1, 1, -1)]).T
 sensor = Sensor(x, y, 0.3, 20, True)
 [w, b] = sensor.get_paras()
 ```
+![image](https://github.com/kanyuanzhi/kan_ML/raw/master/docs/images/sensor.png)
 
 ## KNN
 

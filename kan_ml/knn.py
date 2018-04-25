@@ -53,7 +53,8 @@ class KNN:
                 tag_count[kt] = tag_count[kt] + 1
             else:
                 tag_count[kt] = 1
-        tag_count_list = sorted(tag_count.items(), key=lambda item: item[1], reverse=True)
+        tag_count_list = sorted(
+            tag_count.items(), key=lambda item: item[1], reverse=True)
         # print tag_count_list
         result = tag_count_list[0][0]
         return result
@@ -80,18 +81,24 @@ class KNN:
         if dimensions == 2:
             fig = plt.figure()
             ax = fig.add_subplot(111)
-            for item in xs:
-                item_matrix = np.array(item).T
-                ax.scatter(item_matrix[0], item_matrix[1], c=col_gen.next(), marker='.')
-            ax.scatter(self.test_point[0], self.test_point[1], c='black', marker='*')
+            for i in range(len(xs)):
+                item_matrix = np.array(xs[i]).T
+                ax.scatter(item_matrix[0], item_matrix[1],
+                           c=col_gen.next(), marker='.', label=tag[i])
+            ax.scatter(self.test_point[0],
+                       self.test_point[1], c='black', marker='*', label='test_point')
+            plt.legend()
             plt.show()
         if dimensions == 3:
             fig = plt.figure()
             ax = fig.add_subplot(111, projection='3d')
-            for item in xs:
-                item_matrix = np.array(item).T
-                ax.scatter(item_matrix[0], item_matrix[1], item_matrix[2], c=col_gen.next(), marker='.')
-            ax.scatter(self.test_point[0], self.test_point[1], self.test_point[2], c='black', marker='*')
+            for i in range(len(xs)):
+                item_matrix = np.array(xs[i]).T
+                ax.scatter(item_matrix[0], item_matrix[1], item_matrix[2], c=col_gen.next(
+                ), marker='.', label=tag[i])
+            ax.scatter(self.test_point[0], self.test_point[1],
+                       self.test_point[2], c='black', marker='*', label='test_point')
+            plt.legend()
             plt.show()
 
     def __distance(self, point_a, point_b):
