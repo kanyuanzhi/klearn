@@ -28,11 +28,13 @@ class KNN(object):
             self.k = k
         self.result = self.__train()
 
-        dimensions = np.shape(points)[1]  # 维度
+        self.dimensions = np.shape(points)[1]  # 维度
+
+        self.__train_by_kdtree()
 
         if draw_flag:
-            if dimensions == 2 or dimensions == 3:
-                self.__draw(dimensions)
+            if self.dimensions == 2 or self.dimensions == 3:
+                self.__draw(self.dimensions)
             else:
                 print "can only draw a graph in 2D or 3D!"
 
@@ -58,6 +60,32 @@ class KNN(object):
         # print tag_count_list
         result = tag_count_list[0][0]
         return result
+
+    def __train_by_kdtree(self):
+        kdtree = KDTree(self.points)
+        current_node = kdtree.root
+        j = 0
+        while True:
+            if current_node.left is not None:
+                if self.test_point[j % self.dimensions] <= current_node.value['coordinate'][j % self.dimensions]:
+                    current_node = current_node.left
+                else:
+                    if current_node.right is not None:
+                        current_node = current_node.right
+                    else:
+                        current_node = current_node.left
+                        break
+            else:
+                break
+            j = j + 1
+
+        close_in_node = current_node
+        close_in_distance = self.__distance(
+            close_in_node.value['coordinate'], self.test_point)
+        print close_in_node.value
+        print close_in_distance
+        # while current_node.parent is not None:
+
 
     def __draw(self, dimensions):
         """
@@ -113,7 +141,68 @@ class KNN(object):
 
 
 class KDTree(object):
-    def __init__(self, value, left=None, right=None, parent=None):
+    def __init__(self, points):
+        points_to_dictionary = []
+        for i in range(len(points)):
+            points_to_dictionary.append({'index': i, 'coordinate': points[i]})
+
+        self.dimensions = np.shape(points)[1]  # 维度
+
+        self.root = self.__create(points_to_dictionary, 0)
+        # self.scan_tree()
+
+    def __midian(self, a, j):
+        length = len(a)
+        a.sort(key=lambda x: (x['coordinate'][j]))
+        middle = length / 2
+        return a[middle]
+
+    def __create(self, a, j):
+        if len(a) == 1:
+            a[0]['dimension'] = j
+            return Node(a[0])
+        else:
+            middle_a = self.__midian(a, j)
+            middle_index = len(a) / 2
+            a[middle_index]['dimension'] = j
+            root_node = Node(a[middle_index])
+
+            left_a = a[:middle_index]
+            right_a = a[middle_index + 1:]
+
+            left_node = self.__create(left_a, (j + 1) % self.dimensions)
+            root_node.left = left_node
+            left_node.parent = root_node
+
+            if len(a) > 2:  # or len(right_a)>0
+                right_node = self.__create(right_a, (j + 1) % self.dimensions)
+                root_node.right = right_node
+                right_node.parent = root_node
+
+            return root_node
+
+    def scan_tree(self):
+        queue = []
+        queue.append(self.root)
+        cur_dimension = 0
+        count = 1
+        print count, "layer"
+        while queue:
+            current = queue.pop(0)
+            if current.value['dimension'] != cur_dimension:
+                count = count + 1
+                cur_dimension = current.value['dimension']
+                print '\t'
+                print count, "layers"
+            print current.value['coordinate']
+            if current.left is not None:
+                queue.append(current.left)
+            if current.right is not None:
+                queue.append(current.right)
+
+
+class Node(object):
+    def __init__(self, value=None, left=None, right=None, parent=None):
         self.value = value
         self.left = left
         self.right = right
@@ -121,13 +210,19 @@ class KDTree(object):
 
 
 if __name__ == "__main__":
-    n = 1000
-    # np.random.seed(10)
-    x = np.random.randint(-100, 100, size=(3, n))
+    n = 500
+    np.random.seed(10)
+    x = np.random.randint(0, 200, size=(3, n))
     y = np.random.randint(0, 3, size=(1, n))
-    print x
-    print y
-    test_point = [3, 4, 100]
-    knn = KNN(x.T, y[0], test_point, 5)
+    # print x.T
+    # print y
+    test_point = [3, 4, 50]
+    # knn = KNN(x.T, y[0], test_point, 5, False)
+    # tag = knn.get_result()
+    # print "predicted tag:", tag
+    xx = np.array([(2, 5, 9, 4, 8, 7), (3, 4, 6, 7, 1, 2)])
+    yy = np.random.randint(0, 2, size=(1, 6))
+    test_pointt = [4, 3]
+    knn = KNN(xx.T, yy[0], test_pointt, 5, True)
     tag = knn.get_result()
-    print tag
+    # ktree = KDTree(xx.T)
