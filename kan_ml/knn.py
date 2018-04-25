@@ -7,7 +7,7 @@ from itertools import cycle
 from mpl_toolkits.mplot3d import Axes3D
 
 
-class KNN():
+class KNN(object):
     def __init__(self, points, tags, test_point, k=5, draw_flag=True):
         """
         初始化
@@ -112,9 +112,9 @@ class KNN():
         return self.result
 
 
-class KDTree():
-    def __init__(self, value, left, right, parent):
-        self.value = arg
+class KDTree(object):
+    def __init__(self, value, left=None, right=None, parent=None):
+        self.value = value
         self.left = left
         self.right = right
         self.parent = parent
