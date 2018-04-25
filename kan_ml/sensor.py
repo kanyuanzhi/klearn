@@ -43,7 +43,7 @@ class Sensor:
 
         if draw_flag:
             if self.x_cols <= 2:
-                self.draw()
+                self.__draw()
             else:
                 print "can not draw in 2D graph!"
 
@@ -70,7 +70,7 @@ class Sensor:
         while len(wrong_point_index) > 0 and self.count < self.epoch:
             select_index = choice(wrong_point_index)  # 随机梯度
             dw = self.eta * \
-                 np.array([self.x[select_index]]).T * self.y[select_index][0]
+                np.array([self.x[select_index]]).T * self.y[select_index][0]
             db = self.eta * self.y[select_index][0]
             self.w = self.w + dw
             self.b = self.b + db
@@ -95,10 +95,7 @@ class Sensor:
             # print loss
             self.count = self.count + 1
 
-    def get_paras(self):
-        return [self.w, self.b]
-
-    def draw(self):
+    def __draw(self):
         x1 = []
         x2 = []
         for point in self.x:
@@ -116,6 +113,9 @@ class Sensor:
         print "w:", self.w
         print "b:", self.b
         print "epoch:", self.count
+
+    def get_paras(self):
+        return [self.w, self.b]
 
 
 if __name__ == "__main__":
