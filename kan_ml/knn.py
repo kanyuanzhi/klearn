@@ -63,8 +63,10 @@ class KNN(object):
         return result
 
     def __train_by_kdtree(self):
+        candidate_point = []
         kdtree = KDTree(self.points)
         current_node = kdtree.root
+        while root_check(current_node) and len
         j = 0
         while True:
             if current_node.left is not None:
