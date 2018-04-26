@@ -56,8 +56,7 @@ class KNN(object):
                 tag_count[kt] = tag_count[kt] + 1
             else:
                 tag_count[kt] = 1
-        tag_count_list = sorted(
-            tag_count.items(), key=lambda item: item[1], reverse=True)
+        tag_count_list = sorted(tag_count.items(), key=lambda item: item[1], reverse=True)
         # print tag_count_list
         result = tag_count_list[0][0]
         return result
@@ -66,21 +65,21 @@ class KNN(object):
         candidate_point = []
         kdtree = KDTree(self.points)
         current_node = kdtree.root
-        while root_check(current_node) and len
-        j = 0
-        while True:
-            if current_node.left is not None:
-                if self.test_point[j % self.dimensions] <= current_node.value['coordinate'][j % self.dimensions]:
-                    current_node = current_node.left
-                else:
-                    if current_node.right is not None:
-                        current_node = current_node.right
-                    else:
-                        current_node = current_node.left
-                        break
-            else:
-                break
-            j = j + 1
+        # while root_check(current_node) and len
+        # j = 0
+        # while True:
+        #     if current_node.left is not None:
+        #         if self.test_point[j % self.dimensions] <= current_node.value['coordinate'][j % self.dimensions]:
+        #             current_node = current_node.left
+        #         else:
+        #             if current_node.right is not None:
+        #                 current_node = current_node.right
+        #             else:
+        #                 current_node = current_node.left
+        #                 break
+        #     else:
+        #         break
+        #     j = j + 1
 
         close_in_node = current_node
         close_in_distance = self.__distance(
