@@ -13,7 +13,14 @@ class KDTree(object):
         self.root = self.__create(points_to_dictionary, 0)
         # self.scan_tree()
 
-    def __midian(self, a, j):
+    @staticmethod
+    def __midian(a, j):
+        """
+        求中位数
+        :param a:
+        :param j: 按第j个维度
+        :return:
+        """
         length = len(a)
         a.sort(key=lambda x: (x['coordinate'][j]))
         middle = length / 2
@@ -39,11 +46,13 @@ class KDTree(object):
             right_a = a[middle_index + 1:]
 
             left_node = self.__create(left_a, (j + 1) % self.dimensions)
+            left_node.location = 'left'
             root_node.left = left_node
             left_node.parent = root_node
 
             if len(a) > 2:  # or len(right_a)>0，此处由于偶数长度序列取中位数时取的是中间两个数中右侧的一个，导致右序列可能为空
                 right_node = self.__create(right_a, (j + 1) % self.dimensions)
+                right_node.location = 'right'
                 root_node.right = right_node
                 right_node.parent = root_node
 
@@ -75,3 +84,5 @@ class Node(object):
         self.left = left
         self.right = right
         self.parent = parent
+        self.location = None
+        self.visited = False  # 回溯时判断是否访问过
