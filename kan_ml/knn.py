@@ -127,22 +127,6 @@ class KNN(object):
                 candidate_point.append({'node': current_node, 'distance': current_distance})
                 if current_node.left is None:
                     continue
-                else:
-                    if self.intersect_check(candidate_point, current_node):
-                        location = previous_node.location
-                        if location == 'left':
-                            if current_node.right is None:
-                                continue
-                            else:
-                                current_node = self.find_leaf(current_node.right, self.test_point)
-                                continue
-                        if location == 'right':
-                            if current_node.left is None:
-                                continue
-                            else:
-                                current_node = self.find_leaf(current_node.left, self.test_point)
-                    else:
-                        continue
             else:
                 current_distance = KNN.__distance(current_node.value['coordinate'], self.test_point)
                 candidate_point.sort(key=lambda x: x['distance'])
@@ -154,22 +138,23 @@ class KNN(object):
                     current_node.visited = True
                 if current_node.left is None:
                     continue
-                else:
-                    if self.intersect_check(candidate_point, current_node):
-                        location = previous_node.location
-                        if location == 'left':
-                            if current_node.right is None:
-                                continue
-                            else:
-                                current_node = self.find_leaf(current_node.right, self.test_point)
-                                continue
-                        if location == 'right':
-                            if current_node.left is None:
-                                continue
-                            else:
-                                current_node = self.find_leaf(current_node.left, self.test_point)
-                    else:
+
+            # if current_node.left is not None:会执行以下部分
+            if self.intersect_check(candidate_point, current_node):
+                location = previous_node.location
+                if location == 'left':
+                    if current_node.right is None:
                         continue
+                    else:
+                        current_node = self.find_leaf(current_node.right, self.test_point)
+                        continue
+                if location == 'right':
+                    if current_node.left is None:
+                        continue
+                    else:
+                        current_node = self.find_leaf(current_node.left, self.test_point)
+            else:
+                continue
 
         self.k_point = []
         for cd in candidate_point:
