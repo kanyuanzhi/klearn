@@ -6,10 +6,11 @@ from math import pow
 from itertools import cycle
 from mpl_toolkits.mplot3d import Axes3D
 from kdtree import KDTree
+import time
 
 
 class KNN(object):
-    def __init__(self, points, tags, test_point, k=5, draw_flag=True):
+    def __init__(self, points, tags, test_point, k=5, **args):
         """
         初始化
         :param points: 训练集
@@ -21,17 +22,30 @@ class KNN(object):
         self.points = points
         self.tags = tags
         self.test_point = test_point
+        self.dimensions = np.shape(points)[1]  # 维度
+        self.k_points = []  # k个与test_point最近的点
         if k > len(points):
             self.k = len(points)
         elif k < 1:
             print "k must be bigger than 0!"
+            return
         else:
             self.k = k
-        self.result = self.__train()
 
-        self.dimensions = np.shape(points)[1]  # 维度
+        if 'draw' in args:
+            draw_flag = args['draw']
+        else:
+            draw_flag = False
 
-        self.__train_by_kdtree()
+        if 'kdtree' in args:
+            kdtree_flag = args['kdtree']
+        else:
+            kdtree_flag = False
+
+        if kdtree_flag:
+            self.result = self.__train_by_kdtree()
+        else:
+            self.result = self.__train()
 
         if draw_flag:
             if self.dimensions == 2 or self.dimensions == 3:
@@ -48,11 +62,12 @@ class KNN(object):
         # print distance_list
         # print distance_list[3]
         k_distance = distance_list[0:self.k]
-        print k_distance
+
+        self.k_point = []
         for k in k_distance:
-            print self.points[k[0]]
-        print '\t'
-        k_tags = [self.tags[kd[0]] for kd in k_distance]
+            self.k_points.append(self.points[k[0]])
+
+        k_tags = [self.tags[kd[0]] for kd in k_distance]  # 前k个点的标签是多少
         tag_count = {}  # 每个标签有多少个
         for kt in k_tags:
             if kt in tag_count:
@@ -156,8 +171,22 @@ class KNN(object):
                     else:
                         continue
 
+        self.k_point = []
         for cd in candidate_point:
-            print cd['node'].value['coordinate']
+            self.k_points.append(cd['node'].value['coordinate'])
+
+        k_tags = [self.tags[cd['node'].value['index']] for cd in candidate_point]  # 前k个点的标签是多少
+        tag_count = {}  # 每个标签有多少个
+        for kt in k_tags:
+            if kt in tag_count:
+                tag_count[kt] = tag_count[kt] + 1
+            else:
+                tag_count[kt] = 1
+        tag_count_list = sorted(tag_count.items(), key=lambda item: item[1], reverse=True)
+        # print tag_count_list
+        result = tag_count_list[0][0]
+
+        return result
 
     def intersect_check(self, candidate_point, current_node):
         candidate_point.sort(key=lambda x: (x['distance']))
@@ -246,14 +275,16 @@ class KNN(object):
 
 
 if __name__ == "__main__":
-    n = 5000
-    np.random.seed(10)
-    x = np.random.randint(0, 200, size=(3, n))
+    n = 50000
+    # np.random.seed(100)
+    x = np.random.randint(0, 500, size=(8, n))
     y = np.random.randint(0, 3, size=(1, n))
     # print x.T
     # print y
-    test_point = [3, 4,50]
-    knn = KNN(x.T, y[0], test_point, 5, False)
+    test_point = [3, 4, 50, 409, 323, 534, 654, 21]
+    knn = KNN(x.T, y[0], test_point, 20, draw=True, kdtree=False)
+    knn1 = KNN(x.T, y[0], test_point, 20, draw=True, kdtree=True)
+    print knn.get_result(), knn1.get_result()
     # tag = knn.get_result()
     # print "predicted tag:", tag
     # xx = np.array([(2, 5, 9, 4, 8, 7), (3, 4, 6, 7, 1, 2)])

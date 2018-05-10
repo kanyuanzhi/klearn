@@ -37,12 +37,13 @@ sensor = Sensor(x, y, 0.3, 20, True)
 ```python
 from kan_ml.knn import KNN
 
-knn = KNN(x, tags, test_point, k, (boolen)draw_flag)
+knn = KNN(x, tags, test_point, k, draw=True)
 """
 :param x: training set
 :param tags: tags of training set
 :param test_point: point to be classified
-:param draw_flag: whether draw a graph in 2D or 3D(default True)
+:param k: k value in knn
+:param draw: whether draw a graph in 2D or 3D(default False)
 """
 tag = knn.get_result()
 ```
@@ -53,7 +54,7 @@ n = 1000
 x = np.random.randint(-100, 100, size=(3, n))
 y = np.random.randint(0, 3, size=(1, n))
 test_point = [3, 4, 100]
-knn = KNN(x.T, y[0], test_point, 5)
+knn = KNN(x.T, y[0], test_point, 5, draw=True)
 tag = knn.get_result()
 ```
 ![image](https://github.com/kanyuanzhi/kan_ML/raw/master/docs/images/knn_3d.png)
@@ -74,5 +75,8 @@ kdtree.scan_tree()
 #### use in knn
 
 ```python
-# developing
+knn = KNN(x, tags, test_point, k, kdtree=True)
+"""
+:param kdtree: whether use kdtree to store and train your data(default False)
+"""
 ```
