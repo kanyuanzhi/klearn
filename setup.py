@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='kan_ml',
-    version='0.0.1',
+    version='0.0.2',
     keywords='machine-learning',
     description='machine learning tools',
     url='https://github.com/kanyuanzhi/kan_ML',
