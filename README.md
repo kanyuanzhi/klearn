@@ -12,11 +12,11 @@
 ```python
 from kan_ml.sensor import Sensor
 
-sensor = Sensor(x, y, eta, epoch, (boolen)draw_flag)
+sensor = Sensor(x, y, eta, epoch, draw=True)
 """
 :param eta: learning rate
 :param epoch: maximum number of cycles
-:param draw_flag: whether draw a graph in 2D (default True)
+:param draw: whether draw a graph in 2D (default False)
 """
 [w,b] = sensor.get_paras()
 ```
@@ -25,7 +25,7 @@ sensor = Sensor(x, y, eta, epoch, (boolen)draw_flag)
 ```python
 x = np.array([(3, 4, 1), (3, 3, 1)]).T
 y = np.array([(1, 1, -1)]).T
-sensor = Sensor(x, y, 0.3, 20, True)
+sensor = Sensor(x, y, 0.3, 20, draw=True)
 [w, b] = sensor.get_paras()
 ```
 ![image](https://github.com/kanyuanzhi/kan_ML/raw/master/docs/images/sensor.png)

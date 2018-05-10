@@ -12,14 +12,13 @@ def sign(a):
 
 
 class Sensor:
-    def __init__(self, x, y, eta=0.3, epoch=20, draw_flag=False):
+    def __init__(self, x, y, eta=0.3, epoch=20, **args):
         """
         初始化
         :param x:
         :param y:
         :param eta: 学习速率
         :param epoch: 最大循环次数
-        :param draw_flag: 是否绘制2D图形
         """
         self.x = x
         self.y = y
@@ -40,6 +39,11 @@ class Sensor:
 
         self.__train()
         self.__to_string()
+
+        if 'draw' in args:
+            draw_flag = args['draw']
+        else:
+            draw_flag = False
 
         if draw_flag:
             if self.x_cols <= 2:
@@ -123,6 +127,6 @@ if __name__ == "__main__":
     y = np.array([(1, 1, -1)]).T
     print x
     print y
-    sensor = Sensor(x, y, 0.3, 20, True)
+    sensor = Sensor(x, y, 0.3, 20, draw=True)
     [w, b] = sensor.get_paras()
     print sign(np.dot(x, w) + b)
