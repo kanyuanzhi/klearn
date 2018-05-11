@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='kan_ml',
-    version='0.0.2',
+    name='klearn',
+    version='0.0.3',
     keywords='machine-learning',
-    description='machine learning tools',
-    url='https://github.com/kanyuanzhi/kan_ML',
+    description='toolbox for machine learning',
+    url='https://github.com/kanyuanzhi/klearn',
     author='Kan Yuanzhi',
     author_email='kanyuanzhi@gmail.com',
     packages=['kan_ml'],

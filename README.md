@@ -1,5 +1,7 @@
 # kan_ML
 
+##
+
 ## setup
 
 > python setup.py install<br>
@@ -80,3 +82,57 @@ knn = KNN(x, tags, test_point, k, kdtree=True)
 :param kdtree: whether use kdtree to store and train your data(default False)
 """
 ```
+
+## Naive Bayes
+
+### use
+
+```python
+from kan_ml.bayes import Bayes
+
+bayes = Bayes(x, tags, test_x, show=True)
+"""
+:param show: whether show probabilities in training(default False)
+"""
+tag = bayes.get_result()
+```
+
+### exapmle 1
+
+```python
+n = 200
+dimensions = 5
+x = np.random.randint(0, 4, size=(dimensions, n))
+y = np.random.randint(0, 3, size=(1, n))
+x_test = np.random.randint(0, 4, size=(1, dimensions))
+bayes = Bayes(x, y[0], x_test[0])
+```
+
+### example 2
+
+```python
+x = [[1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3],
+    ['S', 'M', 'M', 'S', 'S', 'S', 'M', 'M', 'L', 'L', 'L', 'M', 'M', 'L', 'L']]
+y = [-1, -1, 1, 1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, -1]
+test_x = [2, 'S']
+bayes = Bayes(x, y, test_x, show=True)
+print bayes.get_result()
+```
+
+output in console:
+
+>prior probabilities:
+>P(Y=1)=0.6
+>P(Y=-1)=0.4
+>
+>conditional_probabilities:
+>P(X(0)=1|Y=1)=0.222222222222    P(X(0)=2|Y=1)=0.333333333333    P(X(0)=3|Y=1)=0.444444444444    
+>P(X(1)=S|Y=1)=0.111111111111    P(X(1)=M|Y=1)=0.444444444444    P(X(1)=L|Y=1)=0.444444444444    
+>P(X(0)=1|Y=-1)=0.5  P(X(0)=2|Y=-1)=0.333333333333   P(X(0)=3|Y=-1)=0.166666666667   
+>P(X(1)=S|Y=-1)=0.5  P(X(1)=M|Y=-1)=0.333333333333   P(X(1)=L|Y=-1)=0.166666666667   
+>
+>posterior_probabilities:
+>P(Y=1)P(X(0)=2|Y=1)P(X(1)=S|Y=1)=0.0222222222222
+>P(Y=-1)P(X(0)=2|Y=-1)P(X(1)=S|Y=-1)=0.0666666666667
+>
+>-1
