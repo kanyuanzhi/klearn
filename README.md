@@ -1,8 +1,10 @@
-# kan_ML
+# KLearn
 
-##
+## Introduction
 
-## setup
+KLearn is toolbox for machine learning & data mining(developing).
+
+## Setup
 
 > python setup.py install<br>
 > pip install numpy,matplotlib
