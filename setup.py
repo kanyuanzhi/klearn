@@ -8,7 +8,7 @@ setup(
     url='https://github.com/kanyuanzhi/klearn',
     author='Kan Yuanzhi',
     author_email='kanyuanzhi@gmail.com',
-    packages=['kan_ml'],
+    packages=['klearn'],
     include_package_data=True,
     platforms='any',
     install_requires=['numpy', 'matplotlib'],

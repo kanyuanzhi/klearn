@@ -12,7 +12,7 @@
 ### use
 
 ```python
-from kan_ml.sensor import Sensor
+from klearn.sensor import Sensor
 
 sensor = Sensor(x, y, eta, epoch, draw=True)
 """
@@ -37,7 +37,7 @@ sensor = Sensor(x, y, 0.3, 20, draw=True)
 ### use
 
 ```python
-from kan_ml.knn import KNN
+from klearn.knn import KNN
 
 knn = KNN(x, tags, test_point, k, draw=True)
 """
@@ -68,7 +68,7 @@ The toolbox also provide kdTree to store data in knn:
 #### use independently
 
 ```python
-from kan_ml.kdtree import KDTree
+from klearn.kdtree import KDTree
 
 kdtree = KDTree(x)
 kdtree.scan_tree()
@@ -88,7 +88,7 @@ knn = KNN(x, tags, test_point, k, kdtree=True)
 ### use
 
 ```python
-from kan_ml.bayes import Bayes
+from klearn.bayes import Bayes
 
 bayes = Bayes(x, tags, test_x, show=True)
 """
