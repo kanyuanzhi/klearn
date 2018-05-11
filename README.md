@@ -2,12 +2,18 @@
 
 ## Introduction
 
-KLearn is toolbox for machine learning & data mining(developing).
+KLearn is a toolbox for machine learning & data mining(developing).
 
 ## Setup
 
 > python setup.py install<br>
 > pip install numpy,matplotlib
+
+or
+
+> pip install klearn
+
+notes: setup with pip may not install the latest version!
 
 ## Sensor
 
